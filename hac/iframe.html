@@ -34,11 +34,13 @@
 	var lock = true;
 	
 	function bodyOnload(){
-		if(aryPara["url"] != undefined){
-			var frame = document.getElementById("iframe");
-			frame.src = aryPara["url"];
-			lock = false;
-		}
+		setTimeout(function(){
+			if(aryPara["url"] != undefined){
+				var frame = document.getElementById("iframe");
+				frame.src = aryPara["url"];
+				lock = false;
+			}
+		}, 1000);
 	}
 	
 	function iframeLoaded(element) {
