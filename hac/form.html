@@ -88,8 +88,9 @@
 		<span class="titleStyle">地址 : </span><br />
 		<input name="address" id="address" type="text" class="uk-form-medium"  mustfill="false" /><br />
 		<br />
-		<span class="mustFill">* </span><span class="titleStyle">預賽可出賽日期 : (請至少勾選一天)</span><br />
+		<span class="mustFill">* </span><span class="titleStyle">預賽無法出賽日期 : </span><br />
 		<div class="uk-form-controls" style="font-size:14pt;margin-top:5px;">
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="皆可出賽"> 皆可出賽</label>
 			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/16"> 2017/4/16</label>
 			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/23"> 2017/4/23</label>
 			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/30"> 2017/4/30</label>
@@ -255,6 +256,24 @@
 	
 	$('input:checkbox[name|="attentedDate"]').change(function() {
 		isCheckboxChecked();
+	});
+	
+	//避免矛盾
+	$('input:checkbox[name|="attentedDate"]').change(function() {
+		if(this.checked) {
+			if($(this).val() == "皆可出賽"){
+				$('input:checkbox[name|="attentedDate"]').each(function(){
+					if($(this).val() != "皆可出賽"){
+						$(this).prop('checked', false);
+					}
+				});
+			}else{
+				$('input:checkbox[name|="attentedDate"][value|="皆可出賽"]').prop('checked', false);
+			}
+		}
+		if($('input:checkbox[name|="attentedDate"]').length - 1 == $('input:checkbox[name|="attentedDate"]:checked').length){
+			$('input:checkbox[name|="attentedDate"]').prop('checked', false);
+		}
 	});
 	
 	//禁止預設表單動作
