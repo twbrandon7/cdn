@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="zh-tw" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>查詢表單</title>
+<!--JQuery-->
+<script src="./js/jquery-3.1.1.min.js"></script>
+
+<!--uikit-->
+<!--<link rel="stylesheet" href="./hac/uikit/css/uikit.docs.min.css" />-->
+<link rel="stylesheet" href="./uikit/css/uikit.almost-flat.min.css" />
+<script src="./uikit/js/uikit.min.js"></script>
+
+<!--custom css-->
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="./css/table.css" />
+
+<!--button-->
+<link rel="stylesheet" href="./css/button/css/buttons.css">
+<script type="text/javascript" src="./css/button/js/buttons.js"></script>
+
+<!--icheck-->
+<link href="./icheck/skins/square/red.css" rel="stylesheet">
+<script src="./icheck/icheck.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<span id="show" style="text-align: center; font-size: 200%; display:none;">
+	<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
+	<p>正在查詢資料...</p>
+</span>
+
+<span id="show_success" style="text-align: center; font-size:14pt; display:none;">
+	<table style="width: 90%; margin-left:5%;margin-top:20px;line-height:16pt;" class="fancytable">
+		<tr class="headerrow">
+			<td style="width: 40%">資訊</td>
+			<td>內容</td>
+		</tr>
+		<tr class="datarowodd">
+			<td style="width: 40%">網路報名序號</td>
+			<td id="signInId" style="color:red;">&nbsp;</td>
+		</tr>
+		<tr class="dataroweven">
+			<td style="width: 40%">隊名</td>
+			<td id="teamName">&nbsp;</td>
+		</tr>
+		<tr class="datarowodd">
+			<td style="width: 40%">報名狀態</td>
+			<td id="status">&nbsp;</td>
+		</tr>
+		<tr class="dataroweven">
+			<td style="width: 40%">報名表</td>
+			<td>
+				<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="download"><i class="uk-icon-cloud-download"></i> 下載pdf檔報名表</a>
+				<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="view"><i class="uk-icon-google"></i> 在Google雲端硬碟中開啟</a>
+			</td>
+		</tr>
+	</table>
+	<p style="text-align:center;"><a href="javascript:location.reload();">重新查詢</a></p>
+</span>
+
+<div id="cover" style="margin-top:20px;">
+	<form id="toPost" name="toPost" action="" method="post" class="uk-form">
+		<p><span id="notfound" style="color: rgb(219, 68, 55);display:none;">找不到您的隊伍資料，請確認您所輸入的資訊是否正確!</span></p>
+		
+		<span style="color: rgb(219, 68, 55); font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
+		*必填</span><br /><br />
+		<!--<span class="mustFill">* </span><span class="titleStyle">隊名 : </span><br />
+		<input name="teamName" id="teamName" type="text" class="uk-form-medium" /><br />
+		<br />-->
+		<!--<span class="mustFill">* </span><span class="titleStyle">領隊 : </span><br />
+		<input name="leader" id="leader" type="text" class="uk-form-medium" /><br />
+		<br />-->
+		<span class="mustFill">* </span><span class="titleStyle">網路報名序號 : </span><br />
+		<input name="id" id="id" type="text" class="uk-form-medium" /><br />
+		<br />
+		<div style="clear: left;"></div>
+		<span name="newLine" id="newLine"></span>
+		<!--<p style="text-align: center; visibility:hidden;"><input type="submit" value="提交" name="submit" id="post"></p>-->
+	</form>
+	<p style="text-align: center;"><button name="submit" id="submit" class="button button-rounded button-flat-primary">查詢</button></p>
+	
+</div>
+<div style="height:30;"></div>
+
+<script language="javascript">
+	function isValidEmailAddress(emailAddress) {
+		var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+		return pattern.test(emailAddress);
+	};
+	
+	var errorMessage = function(id, message){
+		return jQuery('<span/>', {
+			id: id,
+			class: "mustFill",
+			html: "<br/>" + message,
+		})
+	};
+	
+	function checkEmpty(obj){
+		var name = obj[0].name;
+		if($(obj[0]).attr("mustfill") == "false"){
+			return true;
+		}else if(name == "mail"){
+			return true;
+		}
+		
+		var value = obj.val().replace(/\s/g, "");
+		var errSpanId = "err_" + obj[0].name;
+		$('span#' + errSpanId).remove();
+		if(value != "" && value != null){
+			obj[0].style.borderColor = "";
+			return true;
+		}else{
+			obj[0].style.borderColor = "red";
+			if(obj[0].name != "players"){
+				obj.after(errorMessage(errSpanId, "此欄位是必填欄位，不能留空! "));
+			}else{
+				$("span#newLine").after(errorMessage(errSpanId, "此欄位是必填欄位，不能留空!"));
+			}
+			return false;
+		}
+	}
+	
+	function checkEmail(obj){
+		var name = obj[0].name;
+		if(name != "mail"){
+			return true;
+		}
+		
+		if($(obj[0]).attr("mustfill") == "false" && obj.val().replace(/\s/g, "") == ""){
+			return true;
+		}
+		
+		var value = obj.val();
+		$('span#mailError').remove();
+		if(isValidEmailAddress(value)){
+			obj[0].style.borderColor = "";
+			return true;
+		}else{
+			obj[0].style.borderColor = "red";
+			obj.after(errorMessage("mailError", "電子郵件格式不正確!"));
+			return false;
+		}
+	}
+	
+	//將無意義自元統一換成一格空白
+	function toMatchJson(stringIn){
+		val = stringIn.replace(/\s/g, "");
+		if(val == ""){
+			return " ";
+		}else{
+			return stringIn;
+		}
+	}
+	
+	$('input[type=text], textarea, select[name|="group"]').on('input', function(){
+		checkEmpty($(this));
+	});
+	
+	$('input:checkbox[name|="attentedDate"]').change(function() {
+		isCheckboxChecked();
+	});
+	
+	$( "form#toPost" ).submit(function( event ) {
+		event.preventDefault();
+		$('button#submit').click();
+	});
+	
+	//送出
+	$("button#submit").click(function(event){
+		$("span#notfound").css("display", "none");
+		var error = 0;
+		$( "form#toPost" ).find('input[type=text], textarea, select[name|="group"]').each(function(){
+			if(!checkEmail($(this))){
+				error++;
+			}
+			if(!checkEmpty($(this))){
+				error++;
+			}
+		});
+		
+	
+		if(error == 0){
+			var dataObj = new Object();
+			
+			//dataObj.teamName = $("input#teamName").val();
+			//dataObj.leader = $("input#leader").val();
+			dataObj.id = $("input#id").val();
+			//var data = JSON.stringify(dataObj);
+			//console.log(dataObj);
+			$("div#cover").fadeOut( 500 , function() {
+				$("span#show").fadeIn(100);
+			});
+			$.get("https://script.google.com/macros/s/AKfycbyigFIcwBoIdIEKDJ6j61ra81xRJTzJPWeIqkZ-8PWoRp5JjeI/exec", 
+				dataObj,
+			function (result) {
+				console.log(result);
+				if(result == "false"){
+					$("span#show").html("<p>系統發生錯誤，無法送出資料。請聯絡主辦單位! <a href='javascript:location.reload();'>重新整理</a></p>");
+				}else if(result == "notfound"){
+					$("span#notfound").css("display", "");
+					$("span#show").fadeOut(100);
+					$("div#cover").fadeIn(500);
+				}else{
+					var json = jQuery.parseJSON(result);
+					console.log(json);
+					$("a#view").attr("href", json.url);
+					$("a#download").attr("href", json.dlPDF);
+					$("td#signInId").text(json.id);
+					$("td#teamName").text(json.teamName);
+					
+					var status = json.status + "";
+					var message = "";
+					var color = "";
+					if(status == "-1"){
+						$("span#show").html("<p>系統發生錯誤。請聯絡主辦單位!</p>");
+					}else if(status == "0"){
+						color = "#FFB600";
+						message = "報名手續尚未完成，請您在匯款後至本網站「<a href='https://sites.google.com/site/tccdjsbc/transfer-info' target='_blank'>填寫匯款資料</a>」頁面填寫匯款帳號後四碼，以完成報名手續。";
+					}else if(status == "1"){
+						color = "#008000";
+						message = "報名手續已完成，正在等待人工審核報名資料。";
+					}else if(status == "2"){
+						color = "#008000";
+						message = "報名成功!";
+					}
+					
+					$("td#status").html("<b>" + message + "</b>");
+					$("td#status").css("color", color);
+					
+					$("span#show").fadeOut(100);
+					$("span#show_success").fadeIn(500);
+					
+				}
+			});
+		}
+	
+		return;
+	});
+</script>
+
+</body>
+
+</html>

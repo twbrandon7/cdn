@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="zh-tw" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>申請表單</title>
+<!--JQuery-->
+<script src="./js/jquery-3.1.1.min.js"></script>
+
+<!--uikit-->
+<!--<link rel="stylesheet" href="./hac/uikit/css/uikit.docs.min.css" />-->
+<link rel="stylesheet" href="./uikit/css/uikit.almost-flat.min.css" />
+<link rel="stylesheet" href="./css/style.css" />
+<script src="./uikit/js/uikit.min.js"></script>
+
+<!--button-->
+<link rel="stylesheet" href="./css/button/css/buttons.css">
+<script type="text/javascript" src="./css/button/js/buttons.js"></script>
+
+<!--icheck-->
+<link href="./icheck/skins/square/red.css" rel="stylesheet">
+<script src="./icheck/icheck.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<span id="show" style="text-align: center; font-size: 200%; display:none;">
+	<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
+	<p>正在送出資料...</p>
+</span>
+
+<span id="show_success" style="text-align: center; font-size: 22pt; line-height: 24pt; display:none;">
+	<span class="loading-use-flexbox"><div class="hacLogoImg"></div></span>
+	<p><b><span id="status"></span></b>系統已將報名資料送交給主辦單位。</p>
+	<p>為了確保您的權益，建議您下載報名表作為證明時使用。</p>
+	<p>
+		<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="download"><i class="uk-icon-cloud-download"></i> 下載pdf檔報名表</a>
+		<a href="#" target="_blank" class="button button-rounded button-flat-caution" id="view"><i class="uk-icon-google"></i> 在Google雲端硬碟中開啟</a>
+	</p>
+	<p><span style="font-size: 80%;">網路報名序號 : <span id="signInId" style="font-size: 80%;color:red;"></span></span></p>
+	<p><span style="font-size: 80%;">請妥善保存網路報名序號。此序號可至本網站「<a href="https://sites.google.com/site/tccdjsbc/sign-in-status" target="_blank">查詢報名狀態</a>」頁面查詢您隊伍的報名狀態。</span></p>
+	<br/>
+	<p><span id="info">請注意，<b style="color:red;">您未填寫匯款資料</b>，因此報名手續尚未完成! 請您在匯款後至本網站「<a href="https://sites.google.com/site/tccdjsbc/transfer-info" target="_blank">填寫匯款資料</a>」頁面填寫匯款帳號後四碼，以完成報名手續。</span></p>
+</span>
+
+<div id="cover" style="margin-top:20px;">
+	<form id="toPost" name="toPost" action="" method="post" class="uk-form">
+		<span style="color: rgb(219, 68, 55); font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); display: inline !important; float: none;">
+		*必填</span><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">隊名 : </span><br />
+		<input name="teamName" id="teamName" type="text" class="uk-form-medium" /><br />
+		<br />
+		<span class="titleStyle">組別 : </span><br />
+		<select name="group" id="group" class="uk-form-medium uk-form-width-medium" style="margin-top: 5px;" mustfill="false" >
+		<option selected="selected"></option>
+			<option>健康</option>
+			<option>快樂</option>
+			<option>休閒</option>
+			<option>清新</option>
+			<option>友誼</option>
+		</select><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">領隊 : </span><br />
+		<input name="leader" id="leader" type="text" class="uk-form-medium" /><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">總教練 : </span><br />
+		<input name="coach" id="coach" type="text" class="uk-form-medium" /><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">聯絡人 : </span><br />
+		<input name="contactPerson" id="contactPerson" type="text" class="uk-form-medium" /><br />
+		<br />
+		<span class="titleStyle">匯款帳號後四碼 : </span><br />
+		<input name="transferNUM" id="transferNUM" type="text" class="uk-form-medium"  mustfill="false" /><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">手機 : </span><br />
+		<input name="phoneNumber" id="phoneNumber" type="text" class="uk-form-medium" /><br />
+		<br />
+		<span class="titleStyle">Line ID : </span><br />
+		<input name="lineId" id="lineId" type="text" class="uk-form-medium"  mustfill="false" /><br />
+		<br />
+		<span class="titleStyle">Email : </span><br />
+		<input name="mail" id="mail" type="text" class="uk-form-medium"  mustfill="false" /><br />
+		<br />
+		<span class="titleStyle">地址 : </span><br />
+		<input name="address" id="address" type="text" class="uk-form-medium"  mustfill="false" /><br />
+		<br />
+		<span class="mustFill">* </span><span class="titleStyle">預賽可出賽日期 : (請至少勾選一天)</span><br />
+		<div class="uk-form-controls" style="font-size:14pt;margin-top:5px;">
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/16"> 2017/4/16</label>
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/23"> 2017/4/23</label>
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/30"> 2017/4/30</label>
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/07"> 2017/5/07</label>
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/14"> 2017/5/14</label>
+			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/02"> 2017/5/02</label>
+		</div>
+		<br /><br />
+		<span class="mustFill">* </span><span class="titleStyle">隊員名單 : </span> <a name="addPlayer" id="addPlayer" href="javascript:addPlayer();"  disabled="true" class="button button-rounded button-flat-highlight">添加隊員 (剩餘15位)</a> <br />
+		<div name="playerDiv" id="playerDiv" style="word-break: break-all;">
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<br/>
+		</div>
+		<div style="clear: left;"></div>
+		<span name="newLine" id="newLine"></span>
+		<br />
+		<br />
+		<p style="text-align: center;">
+			<input name="aggree" type="checkbox" id="agree" value="0" />
+			<span class="titleStyle" onclick="$('input#agree')[0].click();">
+				我已詳閱簡章、報名須知以及系統使用須知，並願意遵守上述文件之規定。
+			</span>
+		</p>
+		<!--<p style="text-align: center; visibility:hidden;"><input type="submit" value="提交" name="submit" id="post"></p>-->
+	</form>
+	<p style="text-align: center;"><button name="submit" id="submit" disabled="true" class="button button-rounded button-flat-primary">提交</button></p>
+	
+</div>
+<div style="height:30;"></div>
+
+<script language="javascript">
+	function isValidEmailAddress(emailAddress) {
+		var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+		return pattern.test(emailAddress);
+	};
+	
+	var errorMessage = function(id, message){
+		return jQuery('<span/>', {
+			id: id,
+			class: "mustFill",
+			html: "<br/>" + message,
+		})
+	};
+
+	//增加與刪除隊員
+	var playerNum = 15;
+	function addPlayer(){
+		if(playerNum != 0){
+			playerNum--;
+			$('a#addPlayer').text("添加隊員 (剩餘"+playerNum+"位)");
+			$('div#playerDiv').append('<span style="float: left;"><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /><a href="javascript:void(0);" name="removePlayer" id="removePlayer" class="button button-flat-caution" style="margin-top:5px; margin-left:5px;">移除</a></span>');
+		}
+		
+	}
+	
+	$(document).on('click', '.button', function(){ 
+		if(this.name == "removePlayer"){
+			$(this).parent().remove();
+			playerNum++;
+			if(playerNum > 15){
+				playerNum = 15;
+			}
+			$('a#addPlayer').text("添加隊員 (剩餘"+playerNum+"位)");
+		}
+	}); 
+	
+	
+	
+	function checkEmpty(obj){
+		var name = obj[0].name;
+		if($(obj[0]).attr("mustfill") == "false"){
+			return true;
+		}else if(name == "mail"){
+			return true;
+		}
+		
+		var value = obj.val().replace(/\s/g, "");
+		var errSpanId = "err_" + obj[0].name;
+		$('span#' + errSpanId).remove();
+		if(value != "" && value != null){
+			obj[0].style.borderColor = "";
+			return true;
+		}else{
+			obj[0].style.borderColor = "red";
+			if(obj[0].name != "players"){
+				obj.after(errorMessage(errSpanId, "此欄位是必填欄位，不能留空! "));
+			}else{
+				$("span#newLine").after(errorMessage(errSpanId, "此欄位是必填欄位，不能留空!"));
+			}
+			return false;
+		}
+	}
+	
+	function checkEmail(obj){
+		var name = obj[0].name;
+		if(name != "mail"){
+			return true;
+		}
+		
+		if($(obj[0]).attr("mustfill") == "false" && obj.val().replace(/\s/g, "") == ""){
+			return true;
+		}
+		
+		var value = obj.val();
+		$('span#mailError').remove();
+		if(isValidEmailAddress(value)){
+			obj[0].style.borderColor = "";
+			return true;
+		}else{
+			obj[0].style.borderColor = "red";
+			obj.after(errorMessage("mailError", "電子郵件格式不正確!"));
+			return false;
+		}
+	}
+	
+	function isCheckboxChecked(){
+		var checkBox = $( "form#toPost" ).find('input:checkbox[name|="attentedDate"]');
+		$('span#err_attentedDate').remove();
+		if(checkBox.parent().find(":checked").length == 0){
+			checkBox.parent().parent().after(errorMessage("err_attentedDate", "請至少勾選一個日期!"));
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	//將無意義自元統一換成一格空白
+	function toMatchJson(stringIn){
+		val = stringIn.replace(/\s/g, "");
+		if(val == ""){
+			return " ";
+		}else{
+			return stringIn;
+		}
+	}
+	
+	//檢查勾選同意條款
+	$("input#agree").change(function() {
+		if($(this).prop("checked")){
+			$('button#submit').prop('disabled', false);
+		}else{
+			$('button#submit').prop('disabled', true);
+		}
+	});
+	
+	//輸入時檢查
+	$('input#mail').on('input', function(){
+		checkEmail($(this));
+	});
+	
+	$('input[type=text], textarea, select[name|="group"]').on('input', function(){
+		checkEmpty($(this));
+	});
+	
+	$('input:checkbox[name|="attentedDate"]').change(function() {
+		isCheckboxChecked();
+	});
+	
+	//禁止預設表單動作
+	$( "form#toPost" ).submit(function( event ) {
+		event.preventDefault();
+	});
+	
+	//送出
+	$("button#submit").click(function(event){
+		var error = 0;
+		$( "form#toPost" ).find('input[type=text], textarea, select[name|="group"]').each(function(){
+			if(!checkEmail($(this))){
+				error++;
+			}
+			if(!checkEmpty($(this))){
+				error++;
+			}
+		});
+		if(!isCheckboxChecked()){
+			error++;
+		}
+		
+	
+		if(error == 0){
+			var dataObj = new Object();
+			
+			dataObj.teamName = $("input#teamName").val();
+			dataObj.group = toMatchJson($("select#group").val());
+			dataObj.leader = $("input#leader").val();
+			dataObj.coach = $("input#coach").val();
+			dataObj.contactPerson = $("input#contactPerson").val();
+			dataObj.transferNUM = toMatchJson($("input#transferNUM").val());
+			dataObj.phoneNumber = $("input#phoneNumber").val();
+			dataObj.lineId = toMatchJson($("input#lineId").val());
+			dataObj.mail = toMatchJson($("input#mail").val());
+			dataObj.address = toMatchJson($("input#address").val());
+			
+			dataObj.attentedDate = $('input:checkbox[name|="attentedDate"]:checked').map(function () {
+										return this.value;
+									}).get().join(" , ");
+			
+			dataObj.players = $('input[name|="players"]').map(function () {
+									return this.value;
+								}).get().join(" , ");
+			//var data = JSON.stringify(dataObj);
+			
+			$("div#cover").fadeOut( 500 , function() {
+				$("span#show").fadeIn(100);
+			});
+			$.get("https://script.google.com/macros/s/AKfycbw4y7bsq1Q512FIDRQ3On2DQV36Ha9zN2yboJ6DS08WSLLYiNc/exec", 
+				dataObj,
+			function (result) {
+				console.log(result);
+				if(result == "false"){
+					$("span#show").html("<p>系統發生錯誤，無法送出資料。請聯絡主辦單位! <a href='javascript:location.reload();'>重新整理</a></p>");
+				}else{
+					if(dataObj.transferNUM == " "){
+						$("span#status").text("報名手續尚未完成!");
+						$("span#status").css("color", "#FFB600");
+					}else{
+						$("span#status").text("報名手續已完成!");
+						$("span#status").css("color", "#008000");
+						$("span#info").css("display", "none");
+					}
+					
+					var json = jQuery.parseJSON(result);
+					console.log(json);
+					$("a#view").attr("href", json.url);
+					$("a#download").attr("href", json.dlPDF);
+					$("span#signInId").text(json.id);
+					
+					$("span#show").fadeOut(100);
+					$("span#show_success").fadeIn(500);
+					
+				}
+			});
+		}
+	
+		return;
+	});
+</script>
+
+</body>
+
+</html>
