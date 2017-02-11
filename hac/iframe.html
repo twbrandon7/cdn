@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>FRAME</title>
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body onload="bodyOnload();">
+
+<span id="show" style="text-align: center; font-size: 200%;">
+	<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
+	<p>載入過久?<a href="javascript:window.location.reload();">請點此</a></p>
+</span>
+
+<iframe src="blank.html" onload="iframeLoaded(this);" border="0" frameborder="0" height="100%" name="iframe" id="iframe" width="100%"></iframe>
+
+<script type="text/javascript">
+  var strUrl = location.search;
+  var getPara, ParaVal;
+  var aryPara = [];
+
+  if (strUrl.indexOf("?") != -1) {
+    var getSearch = strUrl.split("?");
+    getPara = getSearch[1].split("&");
+    for (i = 0; i < getPara.length; i++) {
+      ParaVal = getPara[i].split("=");
+      aryPara.push(ParaVal[0]);
+      aryPara[ParaVal[0]] = ParaVal[1];
+    }
+  }
+	
+	var lock = true;
+	
+	function bodyOnload(){
+		if(aryPara["url"] != undefined){
+			var frame = document.getElementById("iframe");
+			frame.src = aryPara["url"];
+			lock = false;
+		}
+	}
+	
+	function iframeLoaded(element) {
+		if(lock){return;}
+		document.getElementById("show").style.display = "none";
+		element.height = element.contentWindow.document.body.scrollHeight + "px";
+	}
+</script>
+
+</body>
+
+</html>
