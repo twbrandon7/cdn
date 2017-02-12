@@ -65,8 +65,8 @@
 	
 	function loaded(iframe){
 		iframe.setAttribute('height',height+'px');
-		var dest = document.getElementById('dest');
-		dest.innerHTML = '';
+		//var dest = document.getElementById('dest');
+		//dest.innerHTML = '';
 	}
 </script>
 ]]>
