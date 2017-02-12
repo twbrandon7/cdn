@@ -11,6 +11,10 @@
 <script src="../uikit/js/uikit.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!--Google-->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com">
+
 <!--custom css-->
 <link rel="stylesheet" href="../css/style.css" />
 <link rel="stylesheet" href="../css/table.css" />
@@ -53,7 +57,10 @@
 	
 	<div class="uk-width-medium-1-2 uk-container-center" style="background-color:rgb(240,240,240); margin-top:20px;">
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">
-			
+			<span style="text-align:center;" class="use-flexbox">
+				<h1>申請管理權限</h1>
+				<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			</span>
 		</div>
 	</div>
 	
@@ -70,6 +77,30 @@
 </div>
 <script language="javascript">
 	//console.log(hex_md5("yshac"));
+	function onSignIn(googleUser) {
+		var profile = googleUser.getBasicProfile();
+		/*console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('Name: ' + profile.getName());
+		console.log('Image URL: ' + profile.getImageUrl());
+		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		*/
+		var id_token = googleUser.getAuthResponse().id_token;
+        //console.log("ID Token: " + id_token);
+		
+		console.log('Email: ' + profile.getEmail());
+		
+		var dataObj = new Object();
+		dataObj.mode = "reg";
+		dataObj.token = id_token;
+		dataObj.email = profile.getEmail();
+		
+		$.get("https://script.google.com/macros/s/AKfycbzG5omXeexMerKEDVPaAbe2zzzE7tmOvkw5JboMb2GIYrGrhg8/exec", 
+			dataObj,
+		function (result) {
+			console.log(result);
+			
+		});
+	}
 </script>
 
 </body>
