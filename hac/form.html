@@ -27,6 +27,7 @@
 
 <body>
 <a name="top"></a>
+
 <span id="show" style="text-align: center; font-size: 200%; display:none;">
 	<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
 	<p>正在送出資料...</p>
@@ -131,7 +132,8 @@
 	<p style="text-align: center;"><button name="submit" id="submit" disabled="true" class="button button-rounded button-flat-primary">提交</button></p>
 	
 </div>
-<div style="height:30;"></div>
+<div id="scroll" class="bottomNav" style="display:none;"><a href="#top">移動至頁面頂部</a></div>
+<div style="height:80px;"></div>
 
 <script language="javascript">
 	function isValidEmailAddress(emailAddress) {
@@ -307,17 +309,8 @@
 		event.preventDefault();
 	});
 	
-	//移動到loading
-	function scrollTo(hash) {
-		location.hash = "#" + hash;
-	}
-	
 	//送出
-	$("button#submit").click(function(event){
-		try{
-			$(parent).scrollTop(0);
-		}catch(err){}
-		
+	$("button#submit").click(function(event){		
 		var error = 0;
 		$( "form#toPost" ).find('input[type=text], textarea, select[name|="group"]').each(function(){
 			if(!checkEmail($(this))){
@@ -357,12 +350,6 @@
 			
 			$("div#cover").fadeOut( 500 , function() {
 				$("span#show").fadeIn(100);
-				scrollTo("top");
-				try{
-					$(parent).scrollTop(0);
-				}catch(err){
-				
-				}
 			});
 			$.get("https://script.google.com/macros/s/AKfycbw4y7bsq1Q512FIDRQ3On2DQV36Ha9zN2yboJ6DS08WSLLYiNc/exec", 
 				dataObj,
@@ -389,11 +376,16 @@
 					$("span#show").fadeOut(100);
 					$("span#show_success").fadeIn(500);
 					
+					$("div#scroll").fadeIn(100);
 				}
 			});
 		}
 	
 		return;
+	});
+	
+	$("div#scroll").click(function(){
+		$(this).fadeOut(100);
 	});
 </script>
 
