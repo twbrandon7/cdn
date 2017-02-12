@@ -59,9 +59,9 @@
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">
 			<span style="text-align:center;">
 				<h1>申請管理權限</h1>
-				<span id="show" style="font-size:16pt;text-align:center;">
+				<p style="text-align:center;"><span id="show" style="font-size:16pt;">
 					請稍候...
-				</span>
+				</span></p>
 				<span id="login" class="use-flexbox">
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
 				</span>
@@ -105,13 +105,13 @@
 				$("span#show").html(profile.getEmail() + " 已經送出申請，正在等候人工審核! <br/><a href='#' onclick='signOut();'>登出</a>");
 			}
 		});
-		
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function () {
+	}
+	
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
 			console.log('User signed out.');
 		});
-  }
 	}
 </script>
 
