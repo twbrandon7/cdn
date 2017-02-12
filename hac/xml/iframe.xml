@@ -15,11 +15,11 @@
 </div>
 <script type="text/javascript">
 	gadgets.util.registerOnLoadHandler(doRender);
+	var height = 800;
 	function doRender(){ // setup variables 
 		var prefs = new _IG_Prefs();
 		var iframeURL = prefs.getString('iframeURL');
 		var scroll = prefs.getString('scroll');
-		var height = 800;
 		var width = 600;
 		if(gadgets.window){
 			var viewport = gadgets.window.getViewportDimensions();
@@ -32,7 +32,9 @@
 		} 
 		var iframe = document.createElement('iframe');
 		iframe.setAttribute('width',width+'px');
-		iframe.setAttribute('height',height+'px');
+		iframe.setAttribute('height',0+'px');
+		iframe.setAttribute('onload','loaded(this)');
+		
 		// TODO: add options to control frameborder 
 		iframe.setAttribute('frameborder','no');
 		if(scroll){
@@ -41,8 +43,13 @@
 		iframe.setAttribute('src',iframeURL);
 		// set the slideshow to the placeholder div 
 		var dest = document.getElementById('dest');
-		dest.innerHTML = '';
 		dest.appendChild(iframe); 
+	}
+	
+	function loaded(iframe){
+		iframe.setAttribute('height',height+'px');
+		var dest = document.getElementById('dest');
+		dest.innerHTML = '';
 	}
 </script>
 ]]>
