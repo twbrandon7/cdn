@@ -354,6 +354,7 @@
 			$("div#cover").fadeOut( 500 , function() {
 				$("span#show").fadeIn(100);
 				scrollTo("top");
+				$('html, body').scrollTop(0);
 			});
 			$.get("https://script.google.com/macros/s/AKfycbw4y7bsq1Q512FIDRQ3On2DQV36Ha9zN2yboJ6DS08WSLLYiNc/exec", 
 				dataObj,
