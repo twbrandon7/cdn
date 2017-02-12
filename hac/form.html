@@ -90,16 +90,18 @@
 		<br />
 		<span class="mustFill">* </span><span class="titleStyle">預賽無法出賽日期 : </span><br />
 		<div class="uk-form-controls" style="font-size:14pt;margin-top:5px;">
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="皆可出賽"> 皆可出賽</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/16"> 2017/4/16</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/23"> 2017/4/23</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/30"> 2017/4/30</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/07"> 2017/5/07</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/14"> 2017/5/14</label>
-			<label><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/02"> 2017/5/02</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="皆可出賽"> 皆可出賽</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/16"> 2017/4/16</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/23"> 2017/4/23</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/4/30"> 2017/4/30</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/07"> 2017/5/07</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/14"> 2017/5/14</label>
+			<label style="float: left;"><input type="checkbox" style="margin-left:10px" id="attentedDate" name="attentedDate" value="2017/5/02"> 2017/5/21</label>
 		</div>
+		<div style="clear: left;"></div>
 		<br /><br />
-		<span class="mustFill">* </span><span class="titleStyle">隊員名單 : </span> <a name="addPlayer" id="addPlayer" href="javascript:addPlayer();"  disabled="true" class="button button-rounded button-flat-highlight">添加隊員 (剩餘15位)</a> <br />
+		<span class="mustFill">* </span><span class="titleStyle">球員名單 : (至少填寫10人，點擊最後一欄可再添加 <span id="remain">15</span> 人)</span>
+		<br />
 		<div name="playerDiv" id="playerDiv" style="word-break: break-all;">
 			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
 			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
@@ -110,8 +112,9 @@
 			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
 			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
 			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
-			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /></span>
+			<span><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium jqNewInput" inputId="0" /></span>
 			<br/>
+			<div id="newInputBlock"></div>
 		</div>
 		<div style="clear: left;"></div>
 		<span name="newLine" id="newLine"></span>
@@ -146,14 +149,18 @@
 
 	//增加與刪除隊員
 	var playerNum = 15;
-	function addPlayer(){
-		if(playerNum != 0){
-			playerNum--;
-			$('a#addPlayer').text("添加隊員 (剩餘"+playerNum+"位)");
-			$('div#playerDiv').append('<span style="float: left;"><input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium" /><a href="javascript:void(0);" name="removePlayer" id="removePlayer" class="button button-flat-caution" style="margin-top:5px; margin-left:5px;">移除</a></span>');
-		}
-		
-	}
+	var inputId = 0;
+	
+	var newTextInput = function(inputId){
+		playerNum--;
+		$('span#remain').text(playerNum);
+		return jQuery('<span/>', {
+			id: "players",
+			name: "players",
+			style: "float: left;",
+			html: '<input name="players" id="players" type="text" style="width:150px; margin-left:10px;" class="uk-form-medium jqNewInput" inputId="'+inputId+'" /><a href="javascript:void(0);" name="removePlayer" id="removePlayer" class="button button-flat-caution" style="margin-top:5px; margin-left:5px;">移除</a>',
+		})
+	};
 	
 	$(document).on('click', '.button', function(){ 
 		if(this.name == "removePlayer"){
@@ -162,12 +169,31 @@
 			if(playerNum > 15){
 				playerNum = 15;
 			}
-			$('a#addPlayer').text("添加隊員 (剩餘"+playerNum+"位)");
+			$('span#remain').text(playerNum);
 		}
-	}); 
+	});
 	
+	$(document).on('focus', '.jqNewInput', function(){
+		$('span#remain').text(playerNum);
+		if(playerNum == 0){return;}
+		var obj = $(this);
+		if(obj.attr("inputId") != ""+getMaxInputId()){return;}
+		inputId++;
+		$("div#newInputBlock").before(newTextInput(inputId));
+	});
 	
+	function getMaxInputId(){
+		var max = 0;
+		$("input.jqNewInput").each(function(){
+			var val = parseInt($(this).attr("inputId"));
+			if(val > max){
+				max = val;
+			}
+		});
+		return max;
+	}
 	
+	//檢查輸入框是否為空白
 	function checkEmpty(obj){
 		var name = obj[0].name;
 		if($(obj[0]).attr("mustfill") == "false"){
