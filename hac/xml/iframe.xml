@@ -26,8 +26,12 @@
 }
 </style>
 
-<div id='dest'>
+<div id='loading'>
 	<span class="loading-use-flexbox"><div class="loadingImg"></div></span>
+</div>
+
+<div id='dest'>
+	
 </div>
 
 <script type="text/javascript">
@@ -49,8 +53,9 @@
 		} 
 		var iframe = document.createElement('iframe');
 		iframe.setAttribute('width',width+'px');
-		iframe.setAttribute('height',0+'px');
+		iframe.setAttribute('height',height+'px');
 		iframe.setAttribute('onload','loaded(this)');
+		iframe.setAttribute('style','display:none');
 		
 		// TODO: add options to control frameborder 
 		iframe.setAttribute('frameborder','no');
@@ -64,9 +69,8 @@
 	}
 	
 	function loaded(iframe){
-		iframe.setAttribute('height',height+'px');
-		//var dest = document.getElementById('dest');
-		//dest.innerHTML = '';
+		document.getElementById("loading").style.display = "none";
+		iframe.style.display = "";
 	}
 </script>
 ]]>
