@@ -314,6 +314,10 @@
 	
 	//送出
 	$("button#submit").click(function(event){
+		try{
+			$(parent).scrollTop(0);
+		}catch(err){}
+		
 		var error = 0;
 		$( "form#toPost" ).find('input[type=text], textarea, select[name|="group"]').each(function(){
 			if(!checkEmail($(this))){
