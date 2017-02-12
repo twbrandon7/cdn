@@ -60,7 +60,7 @@
 			<span style="text-align:center;">
 				<h1>申請管理權限</h1>
 				<p style="text-align:center;"><span id="show" style="font-size:16pt;">
-					請稍候...
+					
 				</span></p>
 				<span id="login" class="use-flexbox">
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
@@ -112,6 +112,7 @@
 		auth2.signOut().then(function () {
 			console.log('User signed out.');
 		});
+		$("span#login").css("display", "");
 	}
 </script>
 
