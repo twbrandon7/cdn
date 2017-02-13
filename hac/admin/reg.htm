@@ -60,9 +60,9 @@
 			<span style="text-align:center;">
 				<h1>申請管理權限</h1>
 				<p style="text-align:center;"><span id="show" style="font-size:16pt;">
-					
+					請稍候...
 				</span></p>
-				<span id="login" class="use-flexbox">
+				<span id="login" class="use-flexbox" style="display:none;">
 					<div class="g-signin2" data-onsuccess="onSignIn"></div>
 				</span>
 			</span>
@@ -87,12 +87,10 @@
 		var profile = googleUser.getBasicProfile();
 		var id_token = googleUser.getAuthResponse().id_token;
 		
-		console.log('Email: ' + profile.getEmail());
-		
 		var dataObj = new Object();
 		dataObj.mode = "reg";
 		dataObj.token = id_token;
-		
+		console.log(id_token);
 		$.get("https://script.google.com/macros/s/AKfycbzG5omXeexMerKEDVPaAbe2zzzE7tmOvkw5JboMb2GIYrGrhg8/exec", 
 			dataObj,
 		function (result) {
@@ -111,7 +109,7 @@
 		auth2.signOut().then(function () {
 			console.log('User signed out.');
 		});
-		$("span#show").css("display", "none");
+		$("span#show").html("");
 		$("span#login").css("display", "");
 	}
 	
