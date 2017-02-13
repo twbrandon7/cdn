@@ -90,7 +90,20 @@
 		var id_token = googleUser.getAuthResponse().id_token;
         //console.log("ID Token: " + id_token);
 		if(id_token != "" || id_token != undefined){
-			document.location.href="admin.htm";
+			
+			var dataObj = new Object();
+			dataObj.mode = "login";
+			dataObj.token = id_token;
+			
+			$.get("https://script.google.com/macros/s/AKfycbzG5omXeexMerKEDVPaAbe2zzzE7tmOvkw5JboMb2GIYrGrhg8/exec", 
+				dataObj,
+			function (result) {
+				if(result == true){
+					document.location.href="admin.htm";
+				}else{
+					$("span#show").html("並不允許 " + profile.getEmail() + " 登入控制介面! <br/><a href='#' onclick='signOut();'>登出</a>");
+				}
+			});
 		}
 	}
 </script>
