@@ -37,7 +37,7 @@
 		var iframe = document.createElement('iframe');
 		iframe.setAttribute('width','100%');
 		iframe.setAttribute('height',height+'px');
-		
+		iframe.setAttribute('id', 'frame');
 		iframe.setAttribute('frameborder','no');
 		iframe.setAttribute('onload','loaded(this)');
 		
@@ -62,6 +62,7 @@
   }
   
 	function changeSize(size){
-		frame.style.height = size;
+		console.log("change");
+		document.getElementById('frame').style.height = size;
 	}
 </script>
