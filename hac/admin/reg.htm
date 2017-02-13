@@ -12,7 +12,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!--Google-->
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="./js/initGoogleAPI.js"></script>
 <meta name="google-signin-client_id" content="1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com">
 
 <!--custom css-->
@@ -114,12 +115,7 @@
 		$("span#show").css("display", "none");
 		$("span#login").css("display", "");
 	}
-	var auth2;
-	function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
-    }
+	
 	
 	if (auth2.isSignedIn.get()) {
 		$("span#login").css("display", "");
