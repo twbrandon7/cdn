@@ -98,6 +98,7 @@
 			$.get("https://script.google.com/macros/s/AKfycbzG5omXeexMerKEDVPaAbe2zzzE7tmOvkw5JboMb2GIYrGrhg8/exec", 
 				dataObj,
 			function (result) {
+				console.log(dataObj);
 				console.log(result);
 				$("span#login").css("display", "none");
 				if(result == true){
