@@ -13,13 +13,6 @@
 
 <!--Google-->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<script>
-window.onLoadCallback = function(){
-	gapi.auth2.init({
-		client_id: '1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com'
-	});
-}
-</script>
 <meta name="google-signin-client_id" content="1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com">
 
 <!--custom css-->
@@ -122,13 +115,17 @@ window.onLoadCallback = function(){
 		$("span#login").css("display", "");
 	}
 	
-	$( document ).ready(function() {
+	window.onLoadCallback = function(){
+		gapi.auth2.init({
+			client_id: '1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com'
+		});
+		
 		if (auth2.isSignedIn.get()) {
 			$("span#login").css("display", "");
 		}else{
 			$("span#login").css("display", "none");
 		}
-	});
+	}
 	
 </script>
 
