@@ -82,7 +82,7 @@
 	//console.log(hex_md5("yshac"));
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
-		//console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 		//console.log('Name: ' + profile.getName());
 		//console.log('Image URL: ' + profile.getImageUrl());
 		//console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
@@ -101,7 +101,7 @@
 				console.log(dataObj);
 				console.log(result);
 				$("span#login").css("display", "none");
-				if(result == true){
+				if(result == "true"){
 					document.location.href="admin.htm";
 				}else{
 					$("span#show").html("並不允許 " + profile.getEmail() + " 登入控制介面! <br/><a href='#' onclick='signOut();'>登出</a>");
