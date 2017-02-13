@@ -115,7 +115,12 @@
 		$("span#login").css("display", "");
 	}
 	
-	var auth2 = gapi.auth2.getAuthInstance();
+	function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
+	
 	if (auth2.isSignedIn.get()) {
 		$("span#login").css("display", "");
 	}else{
