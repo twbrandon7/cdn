@@ -118,10 +118,11 @@
 			client_id: '1068514341308-hmbh0jmrq6fdcph97tqql9v6pl1om6i0.apps.googleusercontent.com'
 		});
 		
-		if (auth2.isSignedIn.get()) {
-			$("span#login").css("display", "");
-		}else{
+		if (auth2.isSignedIn.get()){
 			$("span#login").css("display", "none");
+		}else{
+			$("span#login").css("display", "");
+			$("span#show").html("");
 		}
 	}
 </script>
