@@ -59,6 +59,7 @@
 		<div class="uk-block uk-width-medium-1-1 uk-container-center">
 			<span style="text-align:center;" class="use-flexbox">
 				<h1>登入管理系統</h1>
+				
 				<div class="g-signin2" data-onsuccess="onSignIn"></div>
 			</span>
 		</div>
@@ -78,14 +79,17 @@
 <script language="javascript">
 	//console.log(hex_md5("yshac"));
 	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+		//var profile = googleUser.getBasicProfile();
+		//console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		//console.log('Name: ' + profile.getName());
+		//console.log('Image URL: ' + profile.getImageUrl());
+		//console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 		
 		var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
+        //console.log("ID Token: " + id_token);
+		if(id_token != "" || id_token != undefined){
+			document.location.href="admin.htm";
+		}
 	}
 </script>
 
