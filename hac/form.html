@@ -387,6 +387,13 @@
 	$("div#scroll").click(function(){
 		$(this).fadeOut(100);
 	});
+	
+	$( document ).ready(function() {
+		console.log( "ready!" );
+		try{
+			parent.changeSize(document.body.scrollHeight + "px");
+		}catch(e){}
+	});
 </script>
 
 </body>
