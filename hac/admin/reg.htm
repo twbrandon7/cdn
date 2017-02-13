@@ -114,6 +114,14 @@
 		$("span#show").css("display", "none");
 		$("span#login").css("display", "");
 	}
+	
+	gapi.auth2.init();
+	if (auth2.isSignedIn.get()) {
+		$("span#login").css("display", "");
+	}else{
+		$("span#login").css("display", "none");
+	}
+	
 </script>
 
 </body>
